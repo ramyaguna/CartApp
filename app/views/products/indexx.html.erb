@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+<b>
+<%= link_to "Back", root_path%></b>
+<h1>Listing Products</h1>
+  <table>
+
+  <tbody>
+    <% @products.each do |pro| %>
+      <ul>
+        <li class = "list">
+          <%= pro.name %>
+        </li>
+        <li>
+          <%= link_to image_tag(pro.image_url), product_path(pro) %>
+        </li>
+      </ul>    
+      <% end %>
+  </tbody>
+</table>
+
+<br> 

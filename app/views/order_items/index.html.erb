@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<h3>Listing Order Items</h3>
+  <table class ="table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Image</th>
+        <th>Price</th> 
+        <th>Quantity</th>
+        <th>Total</th>
+        <th colspan="1"></th>
+      </tr>
+    </thead>
+        <div>
+         Grand Total:<span class="grand_total"><%=  current_cart.grand_total %></span>
+      </div> 
+    <tbody> 
+      <% @order_items.each do |order_item|%>
+        <tr>
+          <td><%= order_item.product.name%></td>
+          <td><%=image_tag (order_item.product.image_url)%></td>
+          <td> 
+           <%= order_item.product.price%>
+          </td>
+          <%= form_for (order_item) do |f| %>
+            <%= f.hidden_field :id, :value => order_item.id%>                        
+            <%= f.hidden_field :price, :value => order_item.product.price%>
+            <%= f.hidden_field :product, value: order_item.product.id %> 
+          <td>
+            <%= f.number_field :quantity, :value => order_item.quantity, default: "1",:class =>"input-sm" %>
+          </td>
+          <% end %>      
+          <td>
+            <div class ="total_price">
+              <%= order_item.product_price %>
+            </div>
+          </td> 
+          <td> <div class="btn primary">
+              <%= button_to "Cancel Item", {:controller => :order_items,
+                :action => 'destroy', :id => order_item.id }, :method => :delete %></div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<br><b>
+<%= link_to 'New Order item', root_path %>
+<%= link_to 'Checkout', root_path%>

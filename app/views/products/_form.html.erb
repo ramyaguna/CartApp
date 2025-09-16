@@ -1,0 +1,36 @@
+<%= form_for [@subcategory, @product] ,:html => { :id => "formID"} do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% @product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= label_tag :category%><br>
+    <%= select_tag :product_category_id, options_from_collection_for_select(@categories, :id, :name),:prompt => "Select "%>
+  </div>
+  <div id="sub_cat">
+  </div>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.number_field :price %>
+  </div>
+   <div class="field">
+    <%= f.label :Image %><br>
+    <%= f.file_field :image %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <%= link_to 'Back', subcategory_products_path(@subcategory) %>
+<% end %>

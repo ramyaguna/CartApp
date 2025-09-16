@@ -4,11 +4,11 @@ class SubcategoriesController < ApplicationController
   before_action :find_category
   
   def index
-    @subcategories = @category.subcategories
+    @subcategories = @category.sub_categories
   end
   
   def new
-    @subcategory = @category.subcategories.build
+    @subcategory = @category.sub_categories.build
     @categories=Category.all
   end
 
@@ -29,11 +29,11 @@ class SubcategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @subcategory.update(subcategory_params)
-        format.html { redirect_to @subcategory, notice: 'Subcategory was successfully updated.' }
+        format.html { redirect_to @sub_category, notice: 'Subcategory was successfully updated.' }
         format.json { render :show, status: :ok, location: @subcategory }
       else
         format.html { render :edit }
-        format.json { render json: @subcategory.errors, status: :unprocessable_entity }
+        format.json { render json: @sub_category.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -48,11 +48,11 @@ class SubcategoriesController < ApplicationController
 
   private
   def set_subcategory
-    @subcategory = Subcategory.find(params[:id])
+    @subcategory = SubCategory.find(params[:id])
   end
 
   def subcategory_params
-    params.require(:subcategory).permit(:name, :image, :category_id, :product_id)
+    params.require(:sub_category).permit(:name, :image, :category_id, :product_id)
   end
 
   def find_category
