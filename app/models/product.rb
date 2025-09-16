@@ -1,4 +1,4 @@
-class Product
+class Product < ActiveRecord::Base
 	has_many :order_items
 	belongs_to :subcategory
 	belongs_to  :cart
