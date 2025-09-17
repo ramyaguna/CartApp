@@ -11,16 +11,18 @@
   </thead>
 
   <tbody>
-    <% @products.each do |pro| %>
-      <tr>
-        <td><%= pro.name %></td>
-        <td><%= pro.price %></td>
-        <td><%= link_to image_tag(pro.image_url), subcategory_product_path(@subcategory, pro) %></td>
-        <td><%= link_to 'Edit', edit_subcategory_product_path(@subcategory,pro) %></td>
-        <td><%= link_to 'Destroy',subcategory_product_path(@subcategory, pro), method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
-      </tr>
-    <% end %>
+    <% if @products %>
+      <% @products.each do |pro| %>
+        <tr>
+          <td><%= pro.name %></td>
+          <td><%= pro.price %></td>
+          <td><%= link_to image_tag(pro.image_url), subcategory_product_path(@subcategory, pro) %></td>
+          <td><%= link_to 'Edit', edit_subcategory_product_path(@subcategory,pro) %></td>
+          <td><%= link_to 'Destroy',subcategory_product_path(@subcategory, pro), method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>  
   </tbody>
 </table>
 <%= link_to 'New Product', new_subcategory_product_path(@subcategory) %>
