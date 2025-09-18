@@ -48,6 +48,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_16_111830) do
     t.bigint "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image"
     t.index ["category_id"], name: "index_sub_categories_on_category_id"
   end
 

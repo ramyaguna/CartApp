@@ -16,6 +16,6 @@ class ApplicationController < ActionController::Base
 
   def access_control
     @user = User.all
-    authorize! :read, Product, Category, Subcategory
+    authorize! :read, Product, Category, SubCategory
   end
 end
