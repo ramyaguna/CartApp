@@ -18,6 +18,9 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
+  <% if @sub_category.id.present?%>
+  <%=image_tag(@sub_category.image_url)  %>
+  <% end %>
   <div class="field">
     <%= f.label :Image %><br>
     <%= f.file_field :image %>

@@ -33,7 +33,10 @@ gem 'carrierwave'
 gem 'twitter-bootstrap-rails'
 # Use Unicorn as the app server
 # gem 'unicorn'
-gem 'cancancan'
+gem 'cancancan'    
+gem 'jquery-rails'
+gem 'pry'
+
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false

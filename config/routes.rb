@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources  :carts
+  # resources  :carts
   resources  :orders
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -9,20 +9,34 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   root 'categories#index'
-  resources :categories do
-    resources :sub_categories
-  end
+
+  # scope module: 'admin' do
+    resources :categories, shallow: true do
+      resources :sub_categories do 
+        resources :products do
+          collection do
+              get :load_subcategory
+          end
+          # member  do 
+          #   post :add_to_cart
+          # end
+        end
+      end
+    end
+  # end
 
   resources :orders
   resources :carts
 
-  resources :sub_categories do
-    resources :products do
-      collection do
-        get :find_sub_category
-      end
-    end
-  end
+  # post '/products/:id/add_to_cart', to: 'products#add_to_cart', as: :add_to_cart
+
+
+  # resources :products do
+  #   post :add_to_cart, on: :member
+  # end
+  resource :cart, only: [:new]
+  resources :order_items, only: [:create, :destroy]
+  
 
    resources :order_items do
     collection do

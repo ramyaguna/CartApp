@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :find_sub_category
+  before_action :find_sub_category, only: [:index, :create]
 
   def index
     @products= @sub_category.products
@@ -17,13 +17,15 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @subcategories=sub_category.all
+    @subcategories=SubCategory.all
     @categories=Category.all
   end
 
 
-  def create
+  def create    
+    @categories=Category.all
     @product = @sub_category.products.build(product_params)
+    binding.pry
     if @product.save
       redirect_to sub_category_products_path, notice: "Product was successfully created."
     else
@@ -39,12 +41,20 @@ class ProductsController < ApplicationController
     end
   end
 
-  def find_sub_category
+  def load_subcategory
+    puts "-------------------------"
     category =Category.find(params[:category_id])
     @sub_categories=category.sub_categories
     render :partial => "subcategories", :object => @sub_categories 
   end  
-  
+
+   def add_to_cart
+    puts '------------------'
+      product = Product.find(params[:id])
+      @cart.add_product(product).save
+      redirect_to cart_path, notice: 'Product added to cart!'
+   end
+
   def destroy
     @product.destroy
     respond_to do |format|
@@ -54,8 +64,16 @@ class ProductsController < ApplicationController
   end
 
   private
+  
   def set_product
     @product = Product.find(params[:id])
+  end
+
+  def set_cart
+    @cart = Cart.find(session[:cart_id])
+  rescue ActiveRecord::RecordNotFound
+    @cart = Cart.create
+    session[:cart_id] = @cart.id
   end
 
   def product_params

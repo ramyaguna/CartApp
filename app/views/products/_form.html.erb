@@ -32,5 +32,5 @@
   <div class="actions">
     <%= f.submit %>
   </div>
-  <%= link_to 'Back', sub_category_products_path(@sub_category) %>
+  <%= link_to 'Back', sub_category_products_path(sub_category_id: @product.sub_category.id) %>
 <% end %>

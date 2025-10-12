@@ -13,7 +13,6 @@
   <%=image_tag(@product.image_url)%>
 </p>
 
-<%= link_to 'Edit', sub_category_product_path(@sub_category, @product) %> |
-<%= link_to 'Back', sub_category_products_path(@sub_category) %>
-<%= link_to 'Add to Cart', new_cart_path(:product_id => @product.id, :price => @product.price,:total => @product.price ) %>
-
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', sub_category_products_path(sub_category_id: @product.sub_category_id) %>
+<%= link_to 'Add to Cart',new_cart_path(:product_id => @product.id, :price => @product.price,:total => @product.price ) %>

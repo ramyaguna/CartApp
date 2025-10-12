@@ -12,6 +12,13 @@ class SubCategoriesController < ApplicationController
     @categories=Category.all
   end
 
+    def edit
+    @categories=Category.all
+    puts @categories.inspect
+    puts "------------------------"
+  end
+
+
   def create
     @categories=Category.all
     @sub_category = @category.sub_categories.build(sub_category_params)
@@ -40,7 +47,7 @@ class SubCategoriesController < ApplicationController
 
   private
   def set_sub_category
-    @sub_category = Subcategory.find(params[:id])
+    @sub_category = SubCategory.find(params[:id])
   end
 
   def sub_category_params
